@@ -28,7 +28,7 @@ pub(crate) struct Cli {
     #[clap(long)]
     pub(crate) pre_release: Option<String>,
 
-    /// Increase the pre-release patch version
+    /// Increase the pre-release patch version.
     /// The next pre-release version after stable is alpha
     #[clap(long)]
     pub(crate) pre_release_patch: Option<String>,
