@@ -1,11 +1,11 @@
 [package]
-name = "semver-increase"
-version = "0.2.0"
+name = "semver-next"
+version = "0.3.0"
 edition = "2021"
 
 [dependencies]
 semver = "1.0.23"
-clap = { version = "4.5.6", features = ["derive"] }
+clap = { version = "4.5.16", features = ["derive"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"

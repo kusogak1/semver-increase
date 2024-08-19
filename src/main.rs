@@ -1,19 +1,18 @@
 use {
-    crate::semver_inc::{Increase, INVALID_SEMVER_STRING},
+    crate::semver_next::{Next, INVALID_SEMVER_STRING},
     clap::Parser,
     semver::Version,
-    semver_inc::IncreaseType,
+    semver_next::IncreaseType,
     std::process,
 };
 
-mod semver_inc;
+mod semver_next;
 
 fn main() {
-    let args = semver_inc::Cli::parse();
+    let args = semver_next::Cli::parse();
 
-    // Unwrapping is safe, since we checked values beforehand.
     let mut input = String::new();
-    let mut kind = IncreaseType::Unknown;
+    let mut kind = IncreaseType::PreReleasePatch;
 
     if args.major.is_some() {
         input = args.major.unwrap();
@@ -32,10 +31,9 @@ fn main() {
         kind = IncreaseType::PreReleasePatch;
     }
 
-    let mut v_prefix = false;
-    if input.starts_with('v') {
-        v_prefix = true;
-        input.remove(0);
+    let mut v_prefix_char: Option<char> = None;
+    if input.to_ascii_lowercase().starts_with('v') {
+        v_prefix_char = Some(input.remove(0));
     }
 
     let Ok(parsed) = Version::parse(&input) else {
@@ -43,9 +41,9 @@ fn main() {
         process::exit(1);
     };
 
-    if let Ok(inc) = parsed.increase(&kind) {
-        if v_prefix {
-            print!("v");
+    if let Ok(inc) = parsed.next(&kind) {
+        if v_prefix_char.is_some() {
+            print!("{}", v_prefix_char.unwrap());
         }
         println!("{inc}");
     }
