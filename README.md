@@ -35,7 +35,7 @@ Options:
 
 ./semver-next --pre-release "1.2.3-rc.0" # Expected: 1.2.3
 
-./semver-next --pre-release "1.2.3" # Expected: Invalid pre-release string
+./semver-next --pre-release "1.2.3" # Expected: 1.2.4-alpha.0
 
 ./semver-next --pre-release-patch "1.2.3-alpha.4" # Expected: 1.2.3-alpha.5
 
