@@ -42,3 +42,12 @@ Options:
 ./semver-next --pre-release-patch "1.2.4.42" # Expected: Invalid semver string
 
 ```
+
+## Code coverage
+
+From `cargo llvm-cov`
+
+| Filename               | Regions | Missed Regions | Coverage  | Functions | Missed Functions | Executed | Lines | Missed Lines | Coverage | Branches | Missed Branches | Coverage |
+|------------------------|---------|----------------|-----------|-----------|------------------|----------|-------|--------------|----------|----------|-----------------|----------|
+| ./src/semver_next.rs    | 87      | 0              | 100.00%    | 15        | 0                | 100.00%  | 192   | 0            | 100.00%  | 0        | 0               | -        |
+| **TOTAL**               | **87**  | **0**          | **100.00%**| **15**    | **0**            | **100.00%**| **192**| **0**       | **100.00%**| **0**    | **0**           | **-**    |

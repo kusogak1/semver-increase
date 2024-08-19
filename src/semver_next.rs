@@ -250,6 +250,7 @@ mod test {
         assert!(result.is_err());
 
         // creating new pre-release from stable
+        let expected = Version::parse("1.2.4-alpha.0").unwrap();
         let actual = Version {
             major: 1,
             minor: 2,
@@ -259,7 +260,6 @@ mod test {
         }
         .next(&IncreaseType::PreReleasePatch)
         .unwrap();
-        let expected = Version::parse("1.2.4-alpha.0").unwrap();
         assert_eq!(&expected, &actual);
     }
 
@@ -283,9 +283,10 @@ mod test {
         let actual = actual.next(&IncreaseType::PreRelease).unwrap();
         assert_eq!(&expected, &actual);
 
-        let version_str = "foo";
-        let pre_release_version = PrereleaseType::from_str(version_str);
-        assert!(pre_release_version.is_err());
+        // can not create pre-release, if pre-release tag is malformed.
+        let invalid_version = Version::parse("1.2.4-foo").unwrap();
+        let result = invalid_version.next(&IncreaseType::PreRelease);
+        assert!(result.is_err());
 
         let version_str = "rc";
         let actual = PrereleaseType::from_str(version_str);
@@ -296,7 +297,7 @@ mod test {
         assert_eq!(expected, actual);
 
         let expected = "";
-        let actual = format!("{actual}");
+        let actual = actual.to_string();
         assert_eq!(expected, &actual);
     }
 
